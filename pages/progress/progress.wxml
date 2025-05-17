@@ -1,0 +1,9 @@
+<view class="container">
+  <view class="flames">
+    <text wx:for="{{flameArray}}" wx:key="index" class="flame">🔥</text>
+  </view>
+  <view class="progress-card">
+    已坚持{{streakDays}}天，{{streakDays >= 3 ? '解锁雨声音效！' : '继续加油！'}}
+  </view>
+  <button class="start-btn" bindtap="startToday">立即开始今日练习</button>
+</view> 

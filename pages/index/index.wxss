@@ -1,0 +1,349 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 10vh;
+  min-height: 100vh;
+  box-sizing: border-box;
+  background: #fff;
+}
+
+.title {
+  font-size: 56rpx;
+  font-weight: bold;
+  margin-bottom: 60rpx;
+  text-align: center;
+}
+
+/* New styles for scroll container and gradients */
+.emoji-scroll-container {
+  position: relative; 
+  width: 760rpx; /* Set fixed width for "half-full-full-full-half" effect */
+  margin-left: auto; 
+  margin-right: auto;
+  height: 280rpx; 
+  overflow: hidden; 
+  margin-bottom: 30rpx; /* Spacing below the scroll area */
+}
+
+.emoji-scroll-view {
+  width: 100%; /* Ensure scroll-view also takes 100% of container */
+  white-space: nowrap;
+  box-sizing: border-box;
+  position: relative; 
+  padding-bottom: 0; /* Explicitly no padding at the bottom */
+  /* Attempt to hide potential scrollbar by making scroll-view taller and pulling it down */
+  height: calc(100% + 30rpx); /* Make it taller than container by estimated scrollbar height */
+  margin-bottom: -30rpx;   /* Pull it down to hide the scrollbar area */
+  /* For horizontal scrollbar, if it has thickness on the right */
+  /* width: calc(100% + 30rpx); margin-right: -30rpx; */
+}
+
+.emoji-row-inner {
+  display: inline-flex;
+  gap: 40rpx;
+  padding: 110rpx 20rpx 60rpx 20rpx; /* Adjusted top padding for more scale room, bottom for text */
+  align-items: flex-end; 
+  min-width: 100%; 
+  box-sizing: border-box; 
+}
+
+.scroll-gradient {
+  position: absolute;
+  top: 0;
+  height: 100%; 
+  width: 70rpx; /* Slightly wider gradient */
+  pointer-events: none; 
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+  z-index: 2; /* Ensure gradients are above the scroll content */
+}
+
+.scroll-gradient.left {
+  left: 0;
+  background: linear-gradient(to right, white 20%, rgba(255,255,255,0) 100%);
+}
+
+.scroll-gradient.right {
+  right: 0;
+  background: linear-gradient(to left, white 20%, rgba(255,255,255,0) 100%);
+}
+
+.scroll-gradient.visible {
+  opacity: 1;
+}
+
+.emoji-btn-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  width: 150rpx; 
+  border-radius: 12rpx;
+  transition: background-color 0.2s, transform 0.15s ease-out;
+  transform-origin: center bottom; 
+  position: relative; 
+}
+
+.emoji-btn-wrapper:active {
+  background-color: #f0f0f0;
+}
+
+.emoji-btn {
+  width: 100rpx;
+  height: 100rpx;
+  font-size: 60rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50rpx;
+  background: #f5f5f5;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.06);
+  margin-bottom: 10rpx;
+  transition: background 0.2s;
+}
+
+.emoji-text {
+  font-size: 24rpx;
+  color: #555;
+  text-align: center;
+  white-space: normal;
+  line-height: 1.2;
+}
+
+/* Training History Chart */
+.history-chart-section {
+  width: 100%;
+  margin-top: 0; /* Reduced margin as emoji scroll area now has margin-bottom */
+  margin-bottom: 20rpx;
+  padding: 0 30rpx; /* Consistent padding */
+}
+
+.history-chart-container {
+  display: flex;
+  justify-content: space-around; 
+  align-items: flex-end; 
+  height: 320rpx; 
+  background-color: #f9f9f9; 
+  border-radius: 16rpx;
+  padding: 20rpx 15rpx; 
+  box-shadow: 0 2rpx 10rpx rgba(0,0,0,0.05);
+}
+
+.chart-bar-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  flex-grow: 1; 
+  max-width: 13%; 
+}
+
+.chart-bar-duration-outside {
+  font-size: 22rpx;
+  color: #555;
+  margin-bottom: 4rpx;
+  text-align: center;
+}
+
+.chart-bar-wrapper { 
+  display: flex;
+  flex-direction: column; 
+  align-items: center;   
+  justify-content: flex-end; 
+  height: 220rpx;  
+  width: 60rpx; 
+}
+
+.chart-bar { 
+  width: 100%; 
+  border-top-left-radius: 8rpx;
+  border-top-right-radius: 8rpx;
+}
+
+.chart-bar-date {
+  font-size: 24rpx; 
+  color: #777; 
+  margin-top: 12rpx; 
+}
+
+/* 练习历史记录区域样式 */
+.history-section {
+  width: 90%;
+  max-width: 700rpx;
+  margin-top: 20rpx; /* Adjusted margin */
+  padding: 30rpx;
+  background-color: #f9f9f9;
+  border-radius: 16rpx;
+  box-shadow: 0 4rpx 12rpx rgba(0,0,0,0.05);
+}
+
+.history-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30rpx;
+  text-align: center;
+}
+
+.loading-tip,
+.empty-history-tip {
+  text-align: center;
+  color: #888;
+  font-size: 28rpx;
+  padding: 20rpx 0;
+}
+
+.history-item {
+  background-color: #fff;
+  padding: 25rpx;
+  margin-bottom: 20rpx;
+  border-radius: 12rpx;
+  border: 1rpx solid #eee;
+  box-shadow: 0 2rpx 6rpx rgba(0,0,0,0.03);
+}
+
+.history-item:last-child {
+  margin-bottom: 0;
+}
+
+.history-item-date {
+  font-size: 26rpx;
+  color: #666;
+  margin-bottom: 10rpx;
+}
+
+.history-item-details {
+  font-size: 30rpx;
+  color: #333;
+}
+
+/* Support Button Styles */
+.support-btn-container {
+  margin-top: 60rpx;
+  margin-bottom: 40rpx;
+  width: 90%;
+  max-width: 700rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.support-btn {
+  background-image: linear-gradient(to bottom, #FFB74D, #FF9800);
+  color: white;
+  padding: 22rpx 45rpx;
+  border-radius: 80rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  box-shadow: 0 6rpx 18rpx rgba(0, 0, 0, 0.15), 0 2rpx 4rpx rgba(0,0,0,0.1);
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease-out;
+}
+
+.support-btn:active {
+  background-image: linear-gradient(to bottom, #FFA726, #FB8C00);
+  box-shadow: 0 3rpx 10rpx rgba(0,0,0,0.12), 0 1rpx 2rpx rgba(0,0,0,0.08);
+  transform: translateY(1rpx);
+}
+
+/* Modal Styles */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 40rpx;
+  border-radius: 16rpx;
+  width: 85%;
+  max-width: 600rpx;
+  box-shadow: 0 8rpx 24rpx rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.donation-qr-image {
+  width: 300rpx;
+  height: 300rpx;
+  margin-bottom: 20rpx;
+  border: 1rpx solid #eee;
+}
+
+.donation-text {
+  font-size: 28rpx;
+  color: #555;
+  margin-bottom: 30rpx;
+}
+
+.separator {
+  height: 1rpx;
+  background-color: #eee;
+  width: 100%;
+  margin: 20rpx 0;
+}
+
+.suggestions-title {
+  margin-top: 10rpx;
+}
+
+.suggestions-text {
+  font-size: 28rpx;
+  color: #555;
+  margin-bottom: 40rpx;
+  line-height: 1.6;
+}
+
+.close-modal-btn {
+  background-color: #e0e0e0;
+  color: inherit;
+  border-radius: 50%;
+  width: 60rpx;
+  height: 60rpx;
+  padding: 0;
+  font-weight: normal;
+  margin-top: 30rpx;
+  border: 1rpx solid #f0f0f0;
+  box-shadow: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.15s ease-out;
+}
+
+.close-modal-btn:active {
+  background-color: #f0f0f0;
+  box-shadow: none;
+}
+
+.close-modal-icon {
+  /* font-size: 38rpx; */
+  color: #888;
+  line-height: 1;
+  transition: color 0.15s ease-out;
+}
+
+.close-modal-btn:active .close-modal-icon {
+  color: #555;
+} 

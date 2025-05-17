@@ -1,0 +1,40 @@
+# WeChat Mini Program specific
+project.private.config.json
+project.config.json.BACKUP.*
+sourcemap.zip
+
+# Node modules (if any local tooling is used)
+node_modules/
+
+# macOS
+.DS_Store
+*.swp
+
+# IDE specific
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+*.sublime-workspace
+*.sublime-project
+
+# Log files
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Compiled or temporary files (less common for pure native wx, but good practice)
+dist/
+build/
+tmp/
+temp/
+
+# Environment variables file
+.env
+.env.local
+.env.*.local 

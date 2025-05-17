@@ -1,0 +1,5 @@
+.container { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background: #fff; }
+.flames { margin-top: 40px; margin-bottom: 30px; }
+.flame { font-size: 40px; margin: 0 5px; }
+.progress-card { font-size: 24px; background: #f0f4c3; padding: 24px 40px; border-radius: 16px; margin-bottom: 40px; text-align: center; }
+.start-btn { width: 240px; height: 60px; font-size: 20px; background: #ffd54f; border: none; border-radius: 30px; margin-top: 30px; } 

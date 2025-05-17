@@ -1,0 +1,32 @@
+<view class="container">
+  <view class="svg-background-wrapper">
+    <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
+      <rect width="100%" height="100%" fill="red" />
+    </svg>
+  </view>
+
+  <!-- Duration Selector: Show if not playing OR if paused -->
+  <view class="duration-controls" wx:if="{{!isPlaying || isPaused}}">
+    <picker mode="selector" range="{{availableDurations}}" range-key="text" value="{{selectedDurationIndex}}" bindchange="bindDurationChange">
+      <view class="picker-style">
+        <text>选择时长:</text>
+        <text class="selected-duration-text">{{availableDurations[selectedDurationIndex].text}}</text>
+        <text class="picker-arrow">▼</text>
+      </view>
+    </picker>
+  </view>
+
+  <!-- Display selected total duration when playing or paused -->
+  <view class="current-duration-display" wx:if="{{isPlaying || isPaused}}">
+    总时长: {{availableDurations[selectedDurationIndex].text}}
+  </view>
+
+  <!-- Removed 'animate' class, added bindtap -->
+  <view class="breath-indicator" bindtap="handleBreathIndicatorTap">
+    <canvas type="2d" id="progressCircle" class="progress-canvas" style="width: 320rpx; height: 320rpx;"></canvas>
+  </view>
+  <view class="countdown">{{displayTime}}</view>
+  <view wx:if="{{showMood}}" class="mood-row">
+    <view class="mood-btn" wx:for="{{moods}}" wx:key="mood" data-mood="{{item}}" bindtap="selectMood">{{item}}</view>
+  </view>
+</view> 

@@ -1,0 +1,74 @@
+<view class="container">
+  <view class="title">你现在感觉如何?</view>
+  <view class="emoji-scroll-container">
+    <view class="scroll-gradient left {{showLeftGradient ? 'visible' : ''}}"></view>
+    <scroll-view class="emoji-scroll-view" scroll-x="true" enhanced="false" show-scrollbar="false" bindscroll="handleEmojiScroll" scroll-left="{{scrollLeftValue}}">
+      <view class="emoji-row-inner">
+        <view class="emoji-btn-wrapper" 
+              wx:for="{{emojis}}" 
+              wx:key="type" 
+              id="{{item.id}}" 
+              data-emoji="{{item.emoji}}" 
+              bindtap="handleSelect"
+              style="transform: scale({{item.currentScale}}); transform-origin: center center;">
+          <view class="emoji-btn">{{item.emoji}}</view>
+          <text class="emoji-text">{{item.text}}</text>
+        </view>
+      </view>
+    </scroll-view>
+    <view class="scroll-gradient right {{showRightGradient ? 'visible' : ''}}"></view>
+  </view>
+
+  <!-- Training History Chart -->
+  <view class="history-chart-section" wx:if="{{historyChartData && historyChartData.length > 0}}">
+    <view class="history-title">最近7次练习统计</view>
+    <view class="history-chart-container">
+      <view class="chart-bar-item" wx:for="{{historyChartData}}" wx:key="date">
+        <view class="chart-bar-wrapper">
+          <!-- Duration text temporarily moved above for diagnostics -->
+          <view class="chart-bar-duration-outside">{{item.displayDuration}}</view> 
+          <view class="chart-bar" style="height: {{item.barHeightPercent}}%; background-color: {{item.moodColor}};">
+            <!-- <view class="chart-bar-duration-inside">{{item.displayDuration}}</view> --> <!-- Temporarily commented out -->
+          </view>
+        </view>
+        <view class="chart-bar-date">{{item.shortDate}}</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 练习历史记录区域 -->
+  <view class="history-section">
+    <view class="history-title">最近练习记录</view>
+    
+    <view wx:if="{{isLoadingHistory}}" class="loading-tip">正在加载历史记录...</view>
+    
+    <view wx:if="{{!isLoadingHistory && showEmptyHistory}}" class="empty-history-tip">暂无练习记录，开始一次新的练习吧！</view>
+    
+    <block wx:if="{{!isLoadingHistory && !showEmptyHistory && historyList.length > 0}}">
+      <view wx:for="{{historyList}}" wx:key="date" class="history-item">
+        <view class="history-item-date">{{item.displayDate}}</view>
+        <view class="history-item-details">练习时长：{{item.displayDuration}} - 心情：{{item.mood}}</view>
+      </view>
+    </block>
+  </view>
+
+  <!-- Support and Suggestions Button -->
+  <view class="support-btn-container">
+    <button class="support-btn" bindtap="toggleDonationModal">💖 支持与建议</button>
+  </view>
+
+  <!-- Donation and Suggestion Modal -->
+  <view class="modal-overlay" wx:if="{{showDonationModal}}" bindtap="toggleDonationModal">
+    <view class="modal-content" catchtap> <!-- catchtap to prevent closing when clicking content -->
+      <text class="modal-title">支持开发者</text>
+      <image class="donation-qr-image" src="/static/images/donation_qr.png" mode="aspectFit" show-menu-by-longpress="true"></image>
+      <text class="donation-text">您的支持是我持续更新的最大动力！</text>
+      <view class="separator"></view>
+      <text class="modal-title suggestions-title">欢迎建议</text>
+      <text class="suggestions-text">有任何想法或建议，欢迎通过微信私聊我</text>
+      <image class="donation-qr-image" src="/static/images/step-wechat.png" mode="aspectFit" show-menu-by-longpress="true"></image>
+      <button class="close-modal-btn" bindtap="toggleDonationModal"><text class="close-modal-icon">×</text></button>
+    </view>
+  </view>
+
+</view> 

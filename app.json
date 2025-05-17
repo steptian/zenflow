@@ -1,0 +1,14 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/training/training",
+    "pages/progress/progress"
+  ],
+  "window": {
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "极简精力管理",
+    "backgroundColor": "#ffffff",
+    "backgroundTextStyle": "light"
+  }
+} 
