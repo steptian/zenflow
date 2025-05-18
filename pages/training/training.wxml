@@ -24,6 +24,10 @@
   <!-- Removed 'animate' class, added bindtap -->
   <view class="breath-indicator" bindtap="handleBreathIndicatorTap">
     <canvas type="2d" id="progressCircle" class="progress-canvas" style="width: 320rpx; height: 320rpx;"></canvas>
+    <view class="circle-center-hint">
+      <image wx:if="{{!isPlaying || isPaused}}" src="/static/images/play.svg" mode="aspectFit" style="width:70px;height:70px;" />
+      <image wx:if="{{isPlaying && !isPaused}}" src="/static/images/pause.svg" mode="aspectFit" style="width:70px;height:70px;" />
+    </view>
   </view>
   <view class="countdown">{{displayTime}}</view>
   <view wx:if="{{showMood}}" class="mood-row">

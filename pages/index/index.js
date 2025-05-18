@@ -82,8 +82,22 @@ Page({
   },
 
   onReady() { // Was onShow, changed to onReady for layout-dependent queries
-    this.loadTrainingHistory(); // Keep this
+    // this.loadTrainingHistory(); // Moved to onShow
     this.initializeEmojiDock();
+  },
+
+  onShow() {
+    this.loadTrainingHistory(); // Load history every time the page is shown
+    // If initializeEmojiDock needs to be re-run or its state updated onShow, consider logic here.
+    // For now, assuming dock initializes correctly onReady and scales are dynamically updated via scroll.
+    // If the dock needs to be re-centered or items re-evaluated for some reason onShow:
+    // this.initializeEmojiDock(); // This might be too heavy if not needed every time.
+    // Or, more selectively, update scales based on current scrollLeft if it might have changed
+    // without a scroll event firing while page was hidden (less common for scrollLeft).
+    // For instance, if initialScrollLeft was dependent on something that could change:
+    if (this.data.scrollLeftValue !== undefined && this.data.emojiOffsets.length > 0) {
+        this.throttledScrollUpdate(this.data.scrollLeftValue);
+    }
   },
 
   initializeEmojiDock() {
@@ -262,14 +276,6 @@ Page({
     if (scalesChanged) {
       this.setData({ emojis: updatedEmojis });
     }
-  },
-
-  onShow() {
-    // If onReady was used for layout, onShow might be fine for this
-    // this.loadTrainingHistory(); 
-    // If initializeEmojiDock might fail and retry, ensure it's robust
-    // or that onShow doesn't call it again if already initialized.
-    // For now, onReady handles init. If tabbed away and back, scales should ideally persist or be recalculated if needed.
   },
 
   loadTrainingHistory() {

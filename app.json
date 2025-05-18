@@ -10,5 +10,6 @@
     "navigationBarTitleText": "极简精力管理",
     "backgroundColor": "#ffffff",
     "backgroundTextStyle": "light"
-  }
+  },
+  "requiredBackgroundModes": ["audio"]
 } 

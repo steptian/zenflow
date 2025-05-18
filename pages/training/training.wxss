@@ -76,6 +76,21 @@
   z-index: 2;
 }
 
+.circle-center-hint {
+  position: absolute;
+  left: 0; top: 0; right: 0; bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  font-size: 70rpx;
+  color: #fff;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  letter-spacing: 2rpx;
+  z-index: 3;
+}
+
 /* Duration Selector Styles */
 .duration-controls {
   margin-bottom: 30rpx; /* Add some space below the picker */
