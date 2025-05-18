@@ -2,6 +2,10 @@
 
 ZenFlow 是一款简约的微信小程序，旨在通过引导式呼吸练习和心情记录，帮助用户放松身心、缓解压力、提升专注力。
 
+## demo展示
+
+- [ZenFlow 小程序演示视频（B站）](https://www.bilibili.com/video/BV19rJ3zXES7/?vd_source=5b88f0430e9ea54e4f19954564f3e5b9)
+
 ## ✨ 主要功能
 
 *   **引导式呼吸练习**:
