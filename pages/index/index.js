@@ -44,6 +44,7 @@ Page({
     // For throttling scroll events
     _throttleTimer: null,
     _lastScrollLeft: 0,
+    showBilibiliSection: true,
   },
 
   // Utility function for throttling
@@ -79,6 +80,11 @@ Page({
       this.updateEmojiScales(scrollLeft);
       this.updateGradientVisibility(scrollLeft);
     }, 80); // Throttle to roughly every 80ms (adjust as needed)
+
+    const show = wx.getStorageSync('showBilibiliSection');
+    this.setData({
+      showBilibiliSection: show !== false // 默认true
+    });
   },
 
   onReady() { // Was onShow, changed to onReady for layout-dependent queries
@@ -394,5 +400,102 @@ Page({
 
   toggleDonationModal() {
     this.setData({ showDonationModal: !this.data.showDonationModal });
-  }
+  },
+
+  goBilibiliVideo() {
+    const avid = '114500439119522'; // 请确认此avid与BV1ZPEFzsEPD对应
+    const path = `pages/video/video?avid=${avid}`;
+    wx.navigateToMiniProgram({
+      appId: 'wx7564fd5313d24844',
+      path: path,
+      envVersion: 'release',
+      success(res) {
+        // 跳转成功
+      },
+      fail(err) {
+        wx.showToast({
+          title: '跳转失败，请扫码观看',
+          icon: 'none'
+        });
+      }
+    });
+  },
+
+  handleExportData() {
+    try {
+      const history = wx.getStorageSync('trainingHistory') || [];
+      const jsonStr = JSON.stringify(history, null, 2);
+      const fs = wx.getFileSystemManager();
+      const filePath = `${wx.env.USER_DATA_PATH}/training_history_export.json`;
+      fs.writeFile({
+        filePath,
+        data: jsonStr,
+        encoding: 'utf8',
+        success: () => {
+          wx.showActionSheet({
+            itemList: ['保存到本地', '通过微信分享'],
+            success: (res) => {
+              if (res.tapIndex === 0) {
+                // 保存到本地
+                wx.saveFile({
+                  tempFilePath: filePath,
+                  success: (saveRes) => {
+                    wx.showToast({ title: '已保存到本地文件', icon: 'success' });
+                  },
+                  fail: () => {
+                    wx.showToast({ title: '保存失败', icon: 'none' });
+                  }
+                });
+              } else if (res.tapIndex === 1) {
+                // 微信分享
+                wx.shareFileMessage ? wx.shareFileMessage({
+                  filePath,
+                  fileName: 'zenflow_training_history_export.json',
+                  success: () => {
+                    wx.showToast({ title: '已唤起微信分享', icon: 'success' });
+                  },
+                  fail: () => {
+                    wx.showToast({ title: '分享失败', icon: 'none' });
+                  }
+                }) : wx.showToast({ title: '当前微信版本不支持文件分享', icon: 'none' });
+              }
+            },
+            fail: () => {
+              // 用户取消
+            }
+          });
+        },
+        fail: () => {
+          wx.showToast({ title: '导出失败', icon: 'none' });
+        }
+      });
+    } catch (e) {
+      wx.showToast({ title: '导出异常', icon: 'none' });
+    }
+  },
+
+  closeBilibiliSection() {
+    this.setData({ showBilibiliSection: false });
+    wx.setStorageSync('showBilibiliSection', false);
+  },
+
+  showBilibiliSectionAgain() {
+    this.setData({ showBilibiliSection: true }, () => {
+      setTimeout(() => {
+        const query = wx.createSelectorQuery();
+        query.select('.bilibili-video-section').boundingClientRect();
+        query.selectViewport().scrollOffset();
+        query.exec(function(res) {
+          if (res && res[0] && res[1]) {
+            const sectionTop = res[0].top + res[1].scrollTop;
+            wx.pageScrollTo({
+              scrollTop: sectionTop - 30, // 适当留白
+              duration: 400
+            });
+          }
+        });
+      }, 100); // 等待区域渲染
+    });
+    wx.setStorageSync('showBilibiliSection', true);
+  },
 }); 

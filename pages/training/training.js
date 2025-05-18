@@ -81,7 +81,7 @@ Page({
 
     this.backgroundAudioManager.onEnded(() => {
       console.log('[BackgroundAudio] Ended');
-      if (this.data.isPlaying && this.backgroundAudioManager.src === '/static/audio/zen.mp3') {
+      if (this.data.isPlaying && this.backgroundAudioManager.src === 'https://cdn.tutianxia.com/zenflow/zen.mp3') {
         // 如果主要的 zen 音频结束并且我们仍处于播放会话中，则循环播放它。
         console.log('[BackgroundAudio] Looping main zen audio.');
         this.backgroundAudioManager.seek(0); // 跳到开头
@@ -301,7 +301,7 @@ Page({
       this.backgroundAudioManager.epname = '背景舒缓音乐'; // 可选：专辑名称
       // 可选：封面图片URL。您可能需要托管此图像或使用CDN。
       // this.backgroundAudioManager.coverImgUrl = 'URL_TO_YOUR_COVER_IMAGE.jpg';
-      this.backgroundAudioManager.src = '/static/audio/zen.mp3'; // 设置src以自动播放
+      this.backgroundAudioManager.src = 'https://cdn.tutianxia.com/zenflow/zen.mp3'; // 设置src以自动播放
       // 此处不需要显式调用 play()，因为设置 src 会启动播放。
     } else {
       console.error("[_startNewSession] BackgroundAudioManager not initialized!");
@@ -349,7 +349,7 @@ Page({
         this.backgroundAudioManager.stop(); // 停止当前音频 (zen.mp3)
         // 现在使用 BackgroundAudioManager 播放结束音效
         this.backgroundAudioManager.title = '会话结束'; // 必需的标题
-        this.backgroundAudioManager.src = '/static/audio/end.mp3'; 
+        this.backgroundAudioManager.src = 'https://cdn.tutianxia.com/zenflow/end.mp3'; 
         // 播放将自动开始。循环由 onEnded 检查 src 来处理。
     } else {
       console.error("[_endCurrentSession] BackgroundAudioManager not initialized, cannot play end sound.");

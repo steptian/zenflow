@@ -52,11 +52,32 @@
     </block>
   </view>
 
-  <!-- Support and Suggestions Button -->
+  
+
+  
+
+  <!-- B站视频推荐区域 -->
+  <view wx:if="{{!showBilibiliSection}}" class="bilibili-mini-icon" bindtap="showBilibiliSectionAgain">
+    <text class="bilibili-icon">🎬</text>
+  </view>
+
+  <view wx:if="{{showBilibiliSection}}" class="bilibili-video-section">
+    <text class="bilibili-close-abs" bindtap="closeBilibiliSection">×</text>
+    <view class="bilibili-title">
+      <text class="bilibili-icon">🎬</text>
+      开发缘由 · 推荐视频
+    </view>
+    <view class="bilibili-btn-spacer"></view>
+    <button class="bilibili-jump-btn" bindtap="goBilibiliVideo">一键打开B站小程序观看</button>
+    <view class="bilibili-tip">如何改变易疲惫、低精力体质 <text class="bilibili-tip-highlight">【脑科学】</text></view>
+  </view>
+
+<!-- Support and Suggestions Button -->
+<!--
   <view class="support-btn-container">
     <button class="support-btn" bindtap="toggleDonationModal">💖 支持与建议</button>
   </view>
-
+-->
   <!-- Donation and Suggestion Modal -->
   <view class="modal-overlay" wx:if="{{showDonationModal}}" bindtap="toggleDonationModal">
     <view class="modal-content" catchtap> <!-- catchtap to prevent closing when clicking content -->
@@ -70,5 +91,25 @@
       <button class="close-modal-btn" bindtap="toggleDonationModal"><text class="close-modal-icon">×</text></button>
     </view>
   </view>
+
+<view class="export-btn-section">
+  <button class="export-btn" bindtap="handleExportData">
+    <text class="export-btn-icon">📤</text>导出我的数据
+  </button>
+</view>
+
+<!-- 底部隐私说明 -->
+<view class="privacy-tip">
+  <view class="privacy-tip-row">
+    <text class="privacy-icon">🔒</text>
+    本小程序高度重视您的隐私，所有数据仅保存在您本地设备，绝不会上传或存储到任何服务器。
+  </view>
+  <view class="privacy-tip-list-title">温馨提示：</view>
+  <view class="privacy-tip-list">
+    <view class="privacy-tip-list-item">• 您的数据不会被开发者或第三方获取。</view>
+    <view class="privacy-tip-list-item">• 如有需要，请点击 📤 "导出我的数据"，自行备份。</view>
+    <view class="privacy-tip-list-item">• 卸载/更换设备前请务必导出数据，否则将无法恢复。</view>
+  </view>
+</view>
 
 </view> 

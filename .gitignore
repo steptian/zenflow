@@ -3,6 +3,7 @@ project.private.config.json
 project.config.json.BACKUP.*
 sourcemap.zip
 
+需求任务.md
 # Node modules (if any local tooling is used)
 node_modules/
 
